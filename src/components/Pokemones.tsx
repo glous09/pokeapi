@@ -1,52 +1,30 @@
-import { ChangeEvent, useState } from 'react';
-import { usePokemon } from '../hooks/usePokemon'
-import { Pokemon } from '../interface/reqResp'
-import { Nav } from '../components/Nav';
+
+import { usePaginacionPokemones } from '../hooks/usePaginacionPokemones';
 
 export const Pokemones =() => {
-   const { pokemons } = usePokemon();
-   const [ paginaActual, setPaginaActual ] = useState(0);
-   const [ search, setSearch ] = useState('');
 
-   const filtersPokemon = ():Pokemon[] => {
-     if ( search.length === 0)
-      return pokemons.slice(paginaActual, paginaActual + 8); 
-
-      const filtered = pokemons.filter( poke => poke.name.includes( search ));
-      return filtered.slice(paginaActual, paginaActual + 8);
-   }
-  
-   const paginaSiguiente = () => {
-      if (paginaActual > 0 )
-      setPaginaActual ( paginaActual + 8 )
-   }
-
-   const paginaAnterior = () => {
-      setPaginaActual ( paginaActual - 8 )
-   }
-
-   const buscandoPokemon = ({ target }:ChangeEvent<HTMLInputElement>) => {
-     setPaginaActual(0);
-     setSearch( target.value )
-   }
+ const { buscandoPokemon,filtersPokemon, 
+   paginaSiguiente, paginaAnterior, search } =  usePaginacionPokemones();
 
   return (
      <>
-    <Nav/>
     <div className="container">
        <div className="row">
           <div className="s12">
             <div className="row center-align">
-               <div className="col s4">
-                  <h4>Pokemon</h4>
-               </div>
-               <div className='col s4'>
-                  <input type="text" className='form-control'
-                  placeholder='search pokemon'
-                  value={ search }
-                  onChange={ buscandoPokemon } />
-               </div>  
-             </div>
+               <nav>
+                  <div className="nav-wrapper">
+                     <a href="#!" className="brand-logo"><i className="material-icons">cloud</i>Logo</a>
+                  </div>
+                  <div className='col s4'>
+                     <input type="text"
+                     className='form-control'
+                     placeholder='Buscar pokemon'
+                     value={ search }
+                     onChange={ buscandoPokemon } />
+                  </div>  
+            </nav>
+         </div>  
         
     
         <div className="row">
@@ -74,8 +52,8 @@ export const Pokemones =() => {
            ))}
            <div className="row">
               <div className="col-12 center-align">
-                 <a onClick={paginaSiguiente} className="waves-effect waves-light btn center-align" style={{ width: 120, }}>Siguiente</a>
-                 <a onClick={paginaAnterior} className="waves-effect waves-light btn center-align" style={{ width: 120, marginLeft: 5, }}>Anterior</a>
+                 <a onClick={ paginaSiguiente } className="waves-effect waves-light btn center-align" style={{ width: 120, }}>Siguiente</a>
+                 <a onClick={ paginaAnterior } className="waves-effect waves-light btn center-align" style={{ width: 120, marginLeft: 5, }}>Anterior</a>
               </div>
            </div>
          </div> 

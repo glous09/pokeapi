@@ -16,11 +16,12 @@ export const fetchAllPokemones = async(): Promise<Pokemon[]> => {
     //sacando Id 
     const id = pokemonArr[6];
     //Obteniendo imágen
-    const pic =`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+    const pic =`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
     return {
         id,
         pic,
         name:poke.name,
+        url: poke.url
     }  
  })
  console.log(pokemonArr);

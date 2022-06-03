@@ -14,4 +14,5 @@ export interface Pokemon {
     id: string;
     name: string;
     pic: string;
+    url: string;
 }

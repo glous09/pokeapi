@@ -13,5 +13,7 @@ export interface Result {
 export interface Pokemon {
     id: string;
     name: string;
+    url: string;
     pic: string;
+    color?: string;
 }

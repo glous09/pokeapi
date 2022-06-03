@@ -17,7 +17,7 @@ export const Pokemones =() => {
    }
   
    const paginaSiguiente = () => {
-      if (paginaActual > 0 )
+      if (pokemons.filter( poke => poke.name.includes( search )).length > paginaActual + 8  )
       setPaginaActual ( paginaActual + 8 )
    }
 
@@ -45,16 +45,30 @@ export const Pokemones =() => {
                   placeholder='search pokemon'
                   value={ search }
                   onChange={ buscandoPokemon } />
-               </div>  
-             </div>
+               </div>
+               <div className="row">
+                  <div className="col-12 center-align">
+                     <a onClick={paginaAnterior} 
+                        className="waves-effect waves-light btn center-align"
+                        style={{ width: 120, marginLeft: 5, }}>
+                           Anterior
+                     </a>
+                     <a onClick={paginaSiguiente} 
+                        className="waves-effect waves-light btn center-align" 
+                        style={{ width: 120, }}>
+                           Siguiente
+                     </a>  
+                  </div>
+            </div>  
+         </div>
         
     
         <div className="row">
-           {filtersPokemon().map(({ id, name, pic }) => (
+           {filtersPokemon().map(({ id, name, pic, url}) => (
               <div className="col s3">
-                 <div className="card hoverable card-panel grey lighten-5" key={id}>
+                 <div className="card hoverable card-panel grey lighten-5" key={ id }>
                     <div className="waves-block waves-light center-align">
-                       <img className="activator" src={pic} alt={name}
+                       <img className="activator" src={ pic } alt={ name }
                           style={{ width: 120 }} />
                     </div>
                     <div className="card-content" style={{ marginTop: 0, paddingTop: 0, }}>
@@ -67,17 +81,11 @@ export const Pokemones =() => {
                     <div className="card-reveal">
                        <span className="card-title grey-text text-darken-4">
                           <i className="material-icons right">x</i></span>
-                       <p># {id}</p>
+                       <p># { id }</p>
                     </div>
                  </div>
               </div>
            ))}
-           <div className="row">
-              <div className="col-12 center-align">
-                 <a onClick={paginaSiguiente} className="waves-effect waves-light btn center-align" style={{ width: 120, }}>Siguiente</a>
-                 <a onClick={paginaAnterior} className="waves-effect waves-light btn center-align" style={{ width: 120, marginLeft: 5, }}>Anterior</a>
-              </div>
-           </div>
          </div> 
         </div>
       </div>
